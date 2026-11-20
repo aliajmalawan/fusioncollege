@@ -17,10 +17,6 @@ $traffic = [
     ['Online now', getActiveUsers($conn), 'fa-signal', 'today'],
 ];
 
-// The starting password from the setup script still works for this account
-$account_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT password FROM admin_users WHERE id = " . (int) ($_SESSION['admin_id'] ?? 0)));
-$default_password = $account_row && adminPasswordIsSetupDefault($account_row['password']);
-
 // Fetch comprehensive statistics
 $stats = [
     'total_courses' => 0,
@@ -470,13 +466,6 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
         <a href="settings.php#contact-details" style="display: flex; align-items: center; gap: 12px; background: #fff7e6; border: 1px solid #f5d48f; color: #6b4a00; border-radius: 10px; padding: 14px 18px; margin-bottom: 24px; text-decoration: none;">
             <i class="fas fa-triangle-exclamation" style="font-size: 20px;"></i>
             <span><strong>Contact details waiting for confirmation:</strong> <?php echo htmlspecialchars(implode(', ', $pending_contacts)); ?>. They stay hidden on the website until confirmed in Settings.</span>
-        </a>
-        <?php endif; ?>
-
-        <?php if ($default_password): ?>
-        <a href="account.php" style="display: flex; align-items: center; gap: 12px; background: #FEF3F2; border: 1px solid #FECDCA; color: #B42318; border-radius: 10px; padding: 14px 18px; margin-bottom: 24px; text-decoration: none;">
-            <i class="fas fa-key" style="font-size: 20px;"></i>
-            <span><strong>Please change the admin password.</strong> This account still uses the starting password. Open My Account to set your own.</span>
         </a>
         <?php endif; ?>
 
