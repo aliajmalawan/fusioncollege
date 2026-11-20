@@ -29,7 +29,7 @@ function pageFields($slug, $eyebrow, $title, $subtitle, $seoTitle, $seoDesc) {
 
 $registry = [
     'global' => ['label' => 'Site-wide', 'icon' => 'fa-globe', 'fields' => [
-        cf('site_logo', 'College logo', 'logo', 'images/fusion-college-logo.png', 'The official logo (PNG with a transparent background is best, JPG/WebP also work, up to 8 MB). It keeps its own shape and proportions everywhere: header, footer, emails and share previews. The browser tab icon follows it unless a separate favicon is uploaded under Logo & Favicon in the sidebar.'),
+        cf('site_logo', 'College logo', 'logo', 'images/fusion-college-logo.png', 'The official logo (PNG with a transparent background is best, JPG/WebP also work, up to 20 MB). It keeps its own shape and proportions everywhere: header, footer, emails and share previews. The browser tab icon follows it unless a separate favicon is uploaded under Logo & Favicon in the sidebar.'),
         cf('site_full_name', 'Full official name', 'text', '{site_name}, Shakargarh', 'Used in browser titles, the footer copyright, emails and search results. {site_name} is the name set in Settings.'),
         cf('site_tagline', 'Tagline under the college name', 'text', 'Shakargarh', 'Small line below the name in the header and footer.'),
         cf('seo_title_suffix', 'Home page title suffix', 'text', 'F.Sc, ICS & Entry Test Preparation', 'Home page browser title becomes "Full name | this text".'),

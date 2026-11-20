@@ -195,6 +195,7 @@ $table_missing = $videos === false;
                         </div>
                     <?php endif; ?>
                     <input type="file" id="video_poster" name="poster" accept="image/*">
+                    <?php echo uploadSizeHint('1280 × 720 px', 'widescreen 16:9'); ?>
                     <small style="color: var(--text-light); font-size: 12px; display: block; margin-top: 5px;">Shown before the video plays. YouTube videos use their own thumbnail when you leave this empty; Facebook videos show a branded cover with the title. Photos are compressed automatically.</small>
                 </div>
 

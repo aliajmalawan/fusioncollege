@@ -512,6 +512,7 @@ $social_count = count(array_filter(getSocialMedia(), function ($url) { return $u
                                 <?php endif; ?>
                                 <div>
                                     <input type="file" id="principal_photo_upload" name="principal_photo_upload" accept="image/jpeg,image/png,image/webp">
+                                    <?php echo uploadSizeHint('600 × 600 px', 'square, face in the middle'); ?>
                                     <small class="s-help">JPG, PNG or WebP. Compressed automatically on upload.</small>
                                 </div>
                             </div>

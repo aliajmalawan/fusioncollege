@@ -105,3 +105,14 @@ function adminPasswordIsSetupDefault($stored_hash) {
     }
     return false;
 }
+
+/**
+ * Line under an image upload field: the size that looks best on the website, the file types and the
+ * largest file accepted. $size like '1920 × 768 px', $shape like 'wide landscape'. Every photo is
+ * still resized and compressed on upload, so a bigger photo is fine; a smaller one may look soft.
+ */
+function uploadSizeHint($size, $shape = '', $max_mb = 20, $types = 'JPG, PNG or WebP') {
+    return '<div class="upload-hint"><i class="fas fa-ruler-combined" aria-hidden="true"></i><span>'
+        . '<strong>Recommended size:</strong> ' . str_replace(' ', '&nbsp;', htmlspecialchars($size)) . ($shape !== '' ? ' <em>(' . htmlspecialchars($shape) . ')</em>' : '')
+        . '<span class="upload-hint-meta">' . htmlspecialchars($types) . ' &middot; up to ' . (int) $max_mb . ' MB</span></span></div>';
+}

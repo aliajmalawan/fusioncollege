@@ -393,3 +393,21 @@ body {
     color: #1456C0;
     font-size: 20px;
 }
+
+/* Recommended size line under image uploads */
+.upload-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #E8EFFB;
+    border: 1px solid #D9E2F0;
+    border-radius: 8px;
+    color: #172033;
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+.upload-hint > i { color: #1456C0; margin-top: 3px; }
+.upload-hint em { font-style: normal; color: #64748B; }
+.upload-hint-meta { display: block; color: #64748B; font-size: 12.5px; }

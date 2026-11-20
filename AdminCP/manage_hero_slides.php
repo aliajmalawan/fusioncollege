@@ -193,6 +193,7 @@ $slides = mysqli_query($conn, "SELECT * FROM hero_carousel ORDER BY display_orde
                 <div class="form-group">
                     <label>Slide photo <?php echo $edit_slide ? '(optional - leave empty to keep current)' : '*'; ?></label>
                     <input type="file" name="image" accept="image/*" <?php echo !$edit_slide ? 'required' : ''; ?>>
+                    <?php echo uploadSizeHint('1920 × 768 px', 'wide landscape; the text sits on the left, keep the subject right of centre'); ?>
                     <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Image is automatically compressed on upload. Wide landscape photos work best (e.g. 1920x800).</small>
                     <?php if ($edit_slide && !empty($edit_slide['image_path'])): ?>
                         <div style="margin-top: 15px;">

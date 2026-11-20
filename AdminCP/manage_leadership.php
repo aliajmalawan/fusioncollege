@@ -571,14 +571,14 @@ $leaders_result = mysqli_query($conn, $leaders_query);
                     <label>Photo (Optional)</label>
                     <input type="file" name="photo" accept="image/*" onchange="previewImage(this, 'add_photo_preview')">
                     <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Photo is automatically compressed on upload.</small>
-                    <small style="color: #666;">Max size: 5MB. Recommended: 500x500 pixels</small>
+                    <?php echo uploadSizeHint('600 × 600 px', 'square, face in the middle', 5); ?>
                     <img id="add_photo_preview" class="preview-img" style="display: none;">
                 </div>
 
                 <div class="form-group">
                     <label>Signature (Optional)</label>
                     <input type="file" name="signature" accept="image/*" onchange="previewImage(this, 'add_signature_preview')">
-                    <small style="color: #666;">Max size: 2MB. PNG with transparent background recommended</small>
+                    <?php echo uploadSizeHint('600 × 200 px', 'wide; transparent background', 2, 'PNG (transparent) or JPG'); ?>
                     <img id="add_signature_preview" class="preview-img" style="display: none;">
                 </div>
 
@@ -641,7 +641,7 @@ $leaders_result = mysqli_query($conn, $leaders_query);
                     <label>Photo (Leave empty to keep current)</label>
                     <input type="file" name="photo" accept="image/*" onchange="previewImage(this, 'edit_photo_preview')">
                     <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Photo is automatically compressed on upload.</small>
-                    <small style="color: #666;">Max size: 5MB. Recommended: 500x500 pixels</small>
+                    <?php echo uploadSizeHint('600 × 600 px', 'square, face in the middle', 5); ?>
                     <img id="edit_photo_preview" class="preview-img">
                     <label class="remove-image" id="remove_photo_wrap">
                         <input type="checkbox" name="remove_photo" id="remove_photo" value="1"> <i class="fas fa-trash-alt"></i> Remove this photo (the website shows a default icon instead)
@@ -651,7 +651,7 @@ $leaders_result = mysqli_query($conn, $leaders_query);
                 <div class="form-group">
                     <label>Signature (Leave empty to keep current)</label>
                     <input type="file" name="signature" accept="image/*" onchange="previewImage(this, 'edit_signature_preview')">
-                    <small style="color: #666;">Max size: 2MB. PNG with transparent background recommended</small>
+                    <?php echo uploadSizeHint('600 × 200 px', 'wide; transparent background', 2, 'PNG (transparent) or JPG'); ?>
                     <img id="edit_signature_preview" class="preview-img">
                     <label class="remove-image" id="remove_signature_wrap">
                         <input type="checkbox" name="remove_signature" id="remove_signature" value="1"> <i class="fas fa-trash-alt"></i> Remove this signature

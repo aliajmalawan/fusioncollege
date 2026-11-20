@@ -185,6 +185,7 @@ $editing_id = $edit ? (int) $edit['id'] : 0;
                     <div class="ad-photo-body ad-field">
                         <label for="photo">This person's own photo (JPG, PNG or WebP)</label>
                         <input type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/webp">
+                        <?php echo uploadSizeHint('600 × 600 px', 'square, face in the middle', 8); ?>
                         <?php if ($edit && !empty($edit['photo'])): ?>
                             <label class="ad-check"><input type="checkbox" name="remove_photo" value="1"> Remove this photo (show the default picture)</label>
                         <?php else: ?>

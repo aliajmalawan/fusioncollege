@@ -312,6 +312,7 @@ $gallery = mysqli_query($conn, "SELECT * FROM gallery ORDER BY display_order ASC
                     <?php if ($edit_item): ?>
                         <label>Replace Image (optional - leave empty to keep current)</label>
                         <input type="file" name="images[]" accept="image/*">
+                        <?php echo uploadSizeHint('1600 × 1200 px', 'landscape 4:3'); ?>
                         <?php if (!empty($edit_item['image_path'])): ?>
                             <div style="margin-top: 15px;">
                                 <img src="../<?php echo htmlspecialchars($edit_item['image_path']); ?>" alt="Current Image" style="max-width: 300px; border-radius: 8px; box-shadow: var(--shadow);">
@@ -321,6 +322,7 @@ $gallery = mysqli_query($conn, "SELECT * FROM gallery ORDER BY display_order ASC
                     <?php else: ?>
                         <label>Upload Images *</label>
                         <input type="file" name="images[]" accept="image/*" multiple required>
+                        <?php echo uploadSizeHint('1600 × 1200 px', 'landscape 4:3', 20, 'JPG, PNG or WebP, each photo'); ?>
                         <small style="color: var(--text-light); font-size: 12px; display: block; margin-top: 5px;">You can select multiple images at once - each becomes its own gallery entry.</small>
                     <?php endif; ?>
                     <small style="color: var(--primary-color); font-size: 12px; display: flex; align-items: center; gap: 6px; margin-top: 8px;"><i class="fas fa-compress-alt"></i> Images are automatically compressed on upload - no need to resize them yourself first.</small>

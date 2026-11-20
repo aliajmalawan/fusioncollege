@@ -167,6 +167,7 @@ $news = mysqli_query($conn, "SELECT * FROM news ORDER BY created_at DESC");
                 <div class="form-group">
                     <label>Featured Image (Optional)</label>
                     <input type="file" name="image" accept="image/*">
+                    <?php echo uploadSizeHint('1200 × 800 px', 'landscape 3:2'); ?>
                     <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Images are automatically compressed on upload.</small>
                     <?php if ($edit_news && !empty($edit_news['image'])): ?>
                         <div style="margin-top: 10px;">

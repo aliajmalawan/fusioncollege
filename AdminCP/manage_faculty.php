@@ -176,6 +176,7 @@ $faculty = mysqli_query($conn, "SELECT * FROM faculty ORDER BY id DESC");
                         <img src="../<?php echo htmlspecialchars($edit_faculty['photo']); ?>" alt="Current photo" class="faculty-photo-preview">
                     <?php endif; ?>
                     <input type="file" id="faculty_photo" name="photo" accept="image/jpeg,image/png,image/webp">
+                    <?php echo uploadSizeHint('600 × 600 px', 'square, face in the middle'); ?>
                     <small style="color: var(--text-light); display: block; margin-top: 6px;">JPG, PNG or WebP, up to 20 MB. A square photo with the face in the middle looks best; it is compressed automatically.</small>
                     <?php if ($edit_faculty && !empty($edit_faculty['photo'])): ?>
                         <label class="remove-image">

@@ -274,6 +274,24 @@ $current_logo = getLogoPath();
                                 <?php endif; ?>
                                 <div class="pc-controls">
                                     <input type="file" id="f_<?php echo htmlspecialchars($key); ?>" name="file__<?php echo htmlspecialchars($key); ?>" accept="image/jpeg,image/png,image/webp">
+                                    <?php
+                                    // Size that fits where each photo is shown on the website
+                                    if ($type === 'logo') {
+                                        echo uploadSizeHint('800 × 800 px or larger', 'any shape, transparent PNG best');
+                                    } elseif (strpos($key, 'banner_') === 0) {
+                                        echo uploadSizeHint('1920 × 768 px', 'wide landscape; the title sits on the left half');
+                                    } else {
+                                        $content_sizes = [
+                                            'hero_image' => ['1920 × 800 px', 'wide landscape'],
+                                            'home_about_image' => ['1080 × 1350 px', 'portrait 4:5'],
+                                            'home_facilities_image' => ['1200 × 900 px', 'landscape 4:3'],
+                                            'about_story_image' => ['1000 × 1000 px', 'square'],
+                                            'principal_photo' => ['600 × 600 px', 'square, face in the middle'],
+                                        ];
+                                        [$hint_size, $hint_shape] = $content_sizes[$key] ?? ['1200 × 800 px', 'landscape'];
+                                        echo uploadSizeHint($hint_size, $hint_shape);
+                                    }
+                                    ?>
                                     <?php if ($is_custom || $type === 'logo'): ?>
                                         <label class="pc-reset"><input type="checkbox" name="reset__<?php echo htmlspecialchars($key); ?>" value="1"> Go back to the original image</label>
                                     <?php endif; ?>

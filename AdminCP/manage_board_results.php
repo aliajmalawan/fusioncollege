@@ -140,6 +140,7 @@ $results = mysqli_query($conn, "SELECT * FROM board_results ORDER BY year DESC, 
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 5px; font-weight: bold;">Result Image (JPG, PNG):</label>
                     <input type="file" name="image" required accept="image/*" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <?php echo uploadSizeHint('1200 × 1600 px or larger', 'portrait poster; keep the text sharp'); ?>
                     <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Image is automatically compressed on upload.</small>
                 </div>
 

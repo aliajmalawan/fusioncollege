@@ -180,6 +180,7 @@ $v = function ($path) { return htmlspecialchars('../' . $path) . '?v=' . assetVe
                     <div class="ad-field">
                         <label for="logo">Upload a new logo</label>
                         <input type="file" id="logo" name="logo" accept="image/png,image/jpeg,image/webp" required>
+                        <?php echo uploadSizeHint('800 × 800 px or larger', 'any shape, transparent PNG best', 8); ?>
                         <small>PNG with a transparent background works best (JPG and WebP also work), up to 8 MB. Any shape is fine: round, square or wide.<?php echo $favicon_uploaded ? '' : ' The favicon is made from it automatically.'; ?></small>
                     </div>
                     <div class="brand-actions">
@@ -216,6 +217,7 @@ $v = function ($path) { return htmlspecialchars('../' . $path) . '?v=' . assetVe
                     <div class="ad-field">
                         <label for="favicon">Upload a favicon</label>
                         <input type="file" id="favicon" name="favicon" accept="image/png,image/jpeg,image/webp" required>
+                        <?php echo uploadSizeHint('512 × 512 px', 'square', 8); ?>
                         <small>A square PNG of at least 192 x 192 px looks best. A simple symbol reads better than the full logo at this tiny size. All the icon sizes above are made from it.</small>
                     </div>
                     <div class="brand-actions">

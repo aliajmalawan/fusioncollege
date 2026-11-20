@@ -184,6 +184,7 @@ $campuses = mysqli_query($conn, "SELECT * FROM campuses ORDER BY display_order A
                 <div class="form-group">
                     <label>Campus Photo</label>
                     <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp">
+                    <?php echo uploadSizeHint('1200 × 800 px', 'landscape; faces in the upper half'); ?>
                     <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Images are automatically compressed on upload.</small>
                     <?php if ($edit_campus && !empty($edit_campus['image_path'])): ?>
                         <small style="color: var(--text-light); display: block; margin-top: 5px;">Current photo will be kept unless you upload a new one.</small>

@@ -179,6 +179,7 @@ $events = mysqli_query($conn, "SELECT * FROM events ORDER BY event_date DESC, id
                 <div class="form-group">
                     <label>Event Image</label>
                     <input type="file" name="image" accept="image/*">
+                    <?php echo uploadSizeHint('1200 × 800 px', 'landscape 3:2'); ?>
                     <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Images are automatically compressed on upload.</small>
                     <?php if ($edit_event && !empty($edit_event['image'])): ?>
                         <div style="margin-top: 10px;">

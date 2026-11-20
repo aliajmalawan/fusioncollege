@@ -152,6 +152,7 @@ $downloads = mysqli_query($conn, "SELECT * FROM downloads ORDER BY display_order
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 5px; font-weight: bold;">File (PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP):</label>
                     <input type="file" name="file" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <?php echo uploadSizeHint('A4 page (1240 × 1754 px) for scanned images', 'PDF is best for documents', 20, 'PDF, Word, Excel, JPG, PNG or ZIP'); ?>
                     <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Image files (JPG/PNG) are automatically compressed; other file types upload as-is.</small>
                 </div>
 
