@@ -1,0 +1,118 @@
+# ---------------------------------------------------------------------------
+# Clean URLs: /about serves about.php. Works the same in a sub-folder
+# (localhost/fusioncollege/about) and at a domain root (example.com/about).
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Live domain: one address only, https://fusioncollege.edu.pk (http:// and www. forward to it,
+    # so search engines and visitors never see two copies of the site). Not active on localhost.
+    # Needs the SSL certificate (cPanel > SSL/TLS Status > AutoSSL) - check https:// works first.
+    RewriteCond %{HTTP_HOST} ^(www\.)?fusioncollege\.edu\.pk$ [NC]
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    RewriteRule ^ https://fusioncollege.edu.pk%{REQUEST_URI} [R=301,L,NE]
+    RewriteCond %{HTTP_HOST} ^www\.fusioncollege\.edu\.pk$ [NC]
+    RewriteRule ^ https://fusioncollege.edu.pk%{REQUEST_URI} [R=301,L,NE]
+
+    # Helper code and database scripts are never served directly
+    RewriteRule ^(includes|database)(/|$) - [F,L]
+
+    # sitemap.xml and robots.txt are generated for whichever domain the site runs on
+    RewriteRule ^sitemap\.xml$ sitemap.php [L]
+    RewriteRule ^robots\.txt$ robots.php [L]
+
+    # Old .php addresses -> clean address (permanent), so bookmarks and search results keep working.
+    # Not for form posts (a redirect would drop the data) and not for the admin panel.
+    RewriteCond %{REQUEST_METHOD} !POST
+    RewriteCond %{REQUEST_URI} !/AdminCP/ [NC]
+    RewriteCond %{THE_REQUEST} \s/+((?:[^\s?]*/)?)index\.php[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L,NE]
+    RewriteCond %{REQUEST_METHOD} !POST
+    RewriteCond %{REQUEST_URI} !/AdminCP/ [NC]
+    RewriteCond %{THE_REQUEST} \s/+((?:[^\s?]*/)?)([a-z0-9_-]+)\.php[\s?] [NC]
+    RewriteCond %2 !^(sitemap|robots|404)$ [NC]
+    RewriteRule ^ /%1%2 [R=301,L,NE]
+
+    # /about/ -> /about (relative links on the page would otherwise break)
+    # The privacy policy used to be a static page: keep old links working
+    RewriteCond %{THE_REQUEST} \s/+((?:[^\s?]*/)?)privacy-policy\.html[\s?] [NC]
+    RewriteRule ^ /%1privacy-policy [R=301,L,NE]
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} ^(.+)/$
+    RewriteRule ^ %1 [R=301,L]
+
+    # Serve /about from about.php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^([a-z0-9_-]+)$ $1.php [NC,L]
+
+    # Any other address that does not exist: the friendly 404 page (it sends the 404 status itself)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !/AdminCP/ [NC]
+    RewriteRule ^ 404.php [L]
+</IfModule>
+
+
+# Compress text-based responses (HTML/CSS/JS/fonts) - images are already
+# compressed formats (JPEG/PNG) so gzipping them further wastes CPU for
+# no size benefit, hence they're deliberately left out below.
+<IfModule mod_deflate.c>
+    <FilesMatch "\.(html|htm|php|css|js|mjs|json|xml|svg|txt)$">
+        SetOutputFilter DEFLATE
+    </FilesMatch>
+</IfModule>
+
+# Let browsers cache static assets instead of re-downloading them on
+# every page view - the compression pipeline already puts a unique
+# timestamp/id in uploaded filenames, so a long cache lifetime is safe
+# (a changed image gets a new filename, not the same URL with new bytes).
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+    # Stylesheets, scripts and fonts are always linked with ?v=<version>, so a changed file gets a new
+    # address: browsers may keep them for a year without asking again
+    <FilesMatch "\.(css|js|mjs|woff|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_mime.c>
+    AddType font/woff2 .woff2
+</IfModule>
+
+# Never serve database dumps or log files
+<FilesMatch "\.(sql|log|md)$|^error_log$">
+    Require all denied
+</FilesMatch>
+
+# Security headers for every page
+<IfModule mod_headers.c>
+    # Browsers must not guess file types (stops some upload-based attacks)
+    Header always set X-Content-Type-Options "nosniff"
+    # Other sites can't show these pages inside a frame (clickjacking)
+    Header always set X-Frame-Options "SAMEORIGIN"
+    # Only the site's own address is sent to other sites when a visitor clicks a link
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Features the site never uses stay switched off
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+    Header unset X-Powered-By
+</IfModule>
