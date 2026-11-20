@@ -76,7 +76,7 @@ INSERT INTO `campuses` (`name`, `tagline`, `description`, `address`, `phone`, `i
 DROP TEMPORARY TABLE `tmp_campuses`;
 -- campus photos: the Girls Campus building (its sign reads "Girls Campus") and Boys Campus students
 UPDATE `campuses` SET `image_path` = 'uploads/gallery/fcs-campus-building.jpg' WHERE `name` = 'Girls Campus' AND (`image_path` IS NULL OR `image_path` = '');
-UPDATE `campuses` SET `image_path` = 'uploads/gallery/fcs-students.jpg' WHERE `name` = 'Boys Campus' AND (`image_path` IS NULL OR `image_path` = '');
+UPDATE `campuses` SET `image_path` = 'uploads/gallery/fcs-biology-lab.jpg' WHERE `name` = 'Boys Campus' AND (`image_path` IS NULL OR `image_path` = '' OR `image_path` = 'uploads/gallery/fcs-students.jpg');
 
 -- ---------------------------------------------------------------------
 -- 5. Faculty and management ("Our Team" and "Our Principals" on the old site)
